@@ -1,6 +1,6 @@
 # Ride Share Analyics
 
-Analyze and compare ride share prices, locations and times for surge between the two major ride share firms Uber and Lyft
+Analyze and compare ride share prices at given locations and times for surge between the two major ride share firms Uber and Lyft
 
 ## To do
 1. Register apps to get client id and client secrets
