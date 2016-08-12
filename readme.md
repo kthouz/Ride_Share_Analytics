@@ -5,8 +5,8 @@ Analyze and compare ride share prices at given locations and times for surge bet
 ## To do
 1. Register apps to get client id and client secrets [- Done]
 2. Authenticate apps to get access_tokens [- Done]
-3. Prepare data collection apis [- Done]
-4. Prep the database: Still need t choose between MongoDB and Sqlite
+3. Prep data collection apis [- Done]
+4. Prep the database: still need to choose between MongoDB and Sqlite
 5. Collect data to the database
 6. Analyze data
 7. Build a predictive model
