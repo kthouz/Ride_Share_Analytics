@@ -1,10 +1,12 @@
 from uberpy import Uber
 from uberapp_credentials import Uberapp_credentials
 from lyftapp_credentials import Lyftapp_credentials
+from yelpapp_credentials import Yelpapp_credentials
 
 
 from geopy.geocoders import Nominatim
-import requests, json
+import requests, json, rauth
+
 
 class UberObj():
     """
@@ -116,7 +118,7 @@ class LyftObj():
         eta = requests.get(url,headers=self.headers).json()['eta_estimates']
         return eta
 
-class geoObj():
+class GeoObj():
     """
     generate the geographic object
     """
@@ -145,4 +147,37 @@ class geoObj():
         """return latitude and longitude of the initiated location"""
         return [self.location.latitude,self.location.longitude]
     
-    
+    def get_location_neighborhood(self):
+        """
+        This classifies the location with respect to the most frequent activity in its vicinity
+        This method will uses a model built on top of yelp api
+        """
+        pass
+
+class YelpObj():
+    def __init__(self, street_address):
+        credentials = Yelpapp_credentials()
+        self.session = rauth.OAuth1Session(
+            consumer_key = credentials.consumer_key,
+            consumer_secret = credentials.consumer_secret,
+            access_token = credentials.access_token,
+            access_token_secret = credentials.access_token_secret
+            )
+        self.st_address = street_address
+        self.lat,self.lon = GeoObj(self.st_address).get_lat_lon()
+
+    def __get_num_places__(self,lat,lon,category):
+        params = {
+            'category_filter':category,
+            'lang':'en',
+            'radius_filter':1000,
+            'll':'{},{}'.format(str(lat),str(lon))
+            }
+        return self.session.get("http://api.yelp.com/v2/search",params=params).json()['total']
+
+    def get_places(self):
+        filters = ['collegeuniv','education','restaurants','realestate','churches',
+        'hospitals','amusementparks','parks','parking',
+        'bars','danceclubs','lounges','grocery','financialservices']
+        data = zip(filters,map(lambda x:self.__get_num_places__(self.lat,self.lon,x),filters))
+        return data
