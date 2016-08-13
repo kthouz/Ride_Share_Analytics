@@ -155,18 +155,35 @@ class GeoObj():
         pass
 
 class YelpObj():
-    def __init__(self, street_address):
+    def __init__(self, location):
+        """
+        generate location neighbourhood object
+        location: str street address or tuple/list of 2 floats (lat,lon)
+        """
+        # load credentials 
         credentials = Yelpapp_credentials()
+        # initialize a rauth session
         self.session = rauth.OAuth1Session(
             consumer_key = credentials.consumer_key,
             consumer_secret = credentials.consumer_secret,
             access_token = credentials.access_token,
             access_token_secret = credentials.access_token_secret
             )
-        self.st_address = street_address
-        self.lat,self.lon = GeoObj(self.st_address).get_lat_lon()
+        
+        # initialize the location
+        if type(location) is str:
+            # if location is str, use geoObj to find lat and lon
+            self.st_address = location
+            self.lat,self.lon = GeoObj(self.st_address).get_lat_lon()
+        elif (type(location) is tuple) or (type(location) is list):
+            # if location is tuple/list assign lat and lon accordingly
+            self.lat, self.lon = location[0],location[1]
+        else:
+            # otherwise print a warning
+            print "Warning: unknown location format. \nlocation can be string or tuple/list of 2 floats"
 
     def __get_num_places__(self,lat,lon,category):
+        """return number of places of filtered by category nearby lat and lon location"""
         params = {
             'category_filter':category,
             'lang':'en',
@@ -175,7 +192,8 @@ class YelpObj():
             }
         return self.session.get("http://api.yelp.com/v2/search",params=params).json()['total']
 
-    def get_places(self):
+    def get_num_places(self):
+        """return number of places falling in several categories nearby a location"""
         filters = ['collegeuniv','education','restaurants','realestate','churches',
         'hospitals','amusementparks','parks','parking',
         'bars','danceclubs','lounges','grocery','financialservices']
