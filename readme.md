@@ -8,22 +8,22 @@ Analyze and compare ride sharing prices at given locations and times for surge b
 3. [ ] Prep data collection apis wrappers
 Three sources of data are to be used:
 
-	a. uber: 
+	a. [ ] uber: 
 
-		- [ ] get the number of drivers nearby origin and destination
-		- [x] get the ride's cost and duration estimates 
-		- [x] get the surge rate if it exists
+		[ ] - get the number of drivers nearby origin and destination
+		[x] - get the ride's cost and duration estimates 
+		[x] - get the surge rate if it exists
 
-	b. lyft:
+	b. [ ] lyft:
 
-		- [x] get the number of drivers nearby origin and destination
-		- [x] get the ride's cost and duration estimates 
-		- [x] get the surge rate if it exists
+		[x] - get the number of drivers nearby origin and destination
+		[x] - get the ride's cost and duration estimates 
+		[x] - get the surge rate if it exists
 
-	c. yelp: Used to identify location neighbourhood
+	c. [ ] yelp: Used to identify location neighbourhood
 
-		- [x] get places by categories (restaurants, school, hospital, church, finance services, ...)nearby location
-		- [ ] Use classification model to identify the neighbourhood of the location
+		[x] - get places by categories (restaurants, school, hospital, church, finance services, ...)nearby location
+		[ ] - Use classification model to identify the neighbourhood of the location
 
 4. [ ] Prep the database: still need to choose between MongoDB and Sqlite
 5. [ ] Collect data to the database
