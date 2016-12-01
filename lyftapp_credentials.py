@@ -3,7 +3,7 @@ import pandas as pd
 class Lyftapp_credentials():
     def __init__(self):
         """
-        This generate an object containing uber application credentials
+        This generate an object containing lyft application credentials
         """
         credentials = pd.read_csv('Lyft/credentials.csv')
         self.client_id = credentials['CLIENT_ID'].values[0]
